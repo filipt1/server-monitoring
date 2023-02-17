@@ -1,4 +1,5 @@
 import "./App.css";
+
 import CpuUsage from "./CpuUsage";
 import DiskUsage from "./DiskUsage";
 
