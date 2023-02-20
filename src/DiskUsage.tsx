@@ -15,7 +15,7 @@ const DiskUsage = () => {
   } = useFetch<DiskUsageRes>("/disk/get-disk-usage");
 
   const data = {
-    labels: ["Free Space", "Used space"],
+    labels: ["Free Space (GB)", "Used space (GB)"],
     datasets: [
       {
         label: "# of Votes",

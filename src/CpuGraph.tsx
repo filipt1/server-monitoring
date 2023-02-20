@@ -67,7 +67,7 @@ const CpuGraph = () => {
     labels,
     datasets: [
       {
-        label: "CPU usage",
+        label: "CPU usage (%)",
         data: cpuData,
         borderColor: "rgb(255, 234, 174)",
         backgroundColor: "rgb(255, 250, 235)",
