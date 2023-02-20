@@ -13,6 +13,7 @@ import {
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 import { API_URL } from "./constants";
+import Spinner from "./Spinner";
 
 ChartJS.register(
   CategoryScale,
@@ -46,10 +47,21 @@ const labels = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27].reverse();
 
 const CpuGraph = () => {
   const [cpuData, setCpuData] = useState<number[]>(new Array(10).fill(0));
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const res = await axios.get(API_URL + "/cpu/get-cpu-usage");
+      let res;
+      try {
+        res = await axios.get(API_URL + "/cpu/get-cpu-usage");
+      } catch (err: any) {
+        console.log(err);
+        setError(err);
+        return;
+      } finally {
+        setLoading(false);
+      }
 
       const newCpuData = [...cpuData];
       newCpuData.shift();
@@ -75,7 +87,10 @@ const CpuGraph = () => {
     ],
   };
 
-  return <Line options={options} data={data} />;
+  if (loading) return <Spinner />;
+  else if (error) return <>An error occurred</>;
+
+  return <Line data={data} options={options} />;
 };
 
 export default CpuGraph;

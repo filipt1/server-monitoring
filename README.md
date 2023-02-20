@@ -6,7 +6,7 @@
 
 This application shows 2 graphs. One shows current CPU usage of the backend server and the other shows disk usage by the server.
 The frontend of the app is created in React and uses vite as its build tool. To present the data about the server chart.js
-and react-chartjs-2 are used.
+and react-chartjs-2 are used.\
 The backend of the is an express.js server running in node.js Javascript runtime.
 
 ## Setup
@@ -20,8 +20,14 @@ directory in CLI and install dependencies.
 
 **npm install**
 
-then compile typescript code with **tsc** command and finally run express server by typing **node dist/index.js**
+*You can change the port used by express server by creating .env file with PORT variable in server directory, note that you will have to change the port in constants file on the frontend*
 
-Then open *server-monitoring* directory and install dependencies again with **npm install**.
+and run express server by typing 
+
+**npm run dev**
+
+Then open *server-monitoring* directory in another terminal and install dependencies again with 
+
+**npm install**.
 
 Type **npm run dev** to start frontend server. Navigate to **http:/localhost:5173** to inspect the application
