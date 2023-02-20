@@ -1,21 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { API_URL } from "./constants";
+import useFetch from "./hooks/useFetch";
 import { DiskUsageRes } from "./types";
 
 const DiskUsage = () => {
-  const [usage, setUsage] = useState<DiskUsageRes | undefined>(undefined);
+  const { data, loading, error } = useFetch<DiskUsageRes>(
+    "/disk/get-disk-usage"
+  );
 
-  useEffect(() => {
-    async function getData() {
-      const response = await axios.get(API_URL + "/disk/get-disk-usage");
-
-      if (response.status === 200) setUsage(response.data);
-    }
-
-    getData();
-  }, []);
-  return <div>{usage?.usedPercentage}%</div>;
+  return (
+    <div>
+      <h2>Disk usage:</h2>
+      {data?.usedPercentage}
+    </div>
+  );
 };
 
 export default DiskUsage;
