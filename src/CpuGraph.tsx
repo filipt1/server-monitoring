@@ -11,8 +11,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { CpuUsageRes } from "./types";
-import useFetch from "./hooks/useFetch";
+import axios from "axios";
+import { API_URL } from "./constants";
 
 ChartJS.register(
   CategoryScale,
@@ -42,22 +42,26 @@ const options = {
   },
 };
 
-const labels = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "CPU usage",
-      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      borderColor: "rgb(255, 234, 174)",
-      backgroundColor: "rgb(255, 250, 235)",
-    },
-  ],
-};
+const labels = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27].reverse();
 
 const CpuGraph = () => {
   const [cpuData, setCpuData] = useState<number[]>(new Array(10).fill(0));
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get(API_URL + "/cpu/get-cpu-usage");
+
+      const newCpuData = [...cpuData];
+      newCpuData.shift();
+      newCpuData.push(Number(res.data.cpuUsage));
+
+      setCpuData(newCpuData);
+    }
+
+    const timer = setTimeout(() => fetchData(), 3000);
+
+    return () => clearInterval(timer);
+  }, [cpuData]);
 
   const data = {
     labels,
