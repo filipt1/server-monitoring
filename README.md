@@ -1,6 +1,6 @@
 # Server monitoring app
 
-### simple app displaying current disk and CPU usage 
+### simple app displaying current disk and CPU usage (interview question)
 
 ## Introduction
 
